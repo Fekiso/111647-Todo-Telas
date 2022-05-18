@@ -10,14 +10,6 @@ DetalleCompra.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    idCompra: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-    },
-    idProductoStock: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-    },
     nombreProducto: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -32,6 +24,14 @@ DetalleCompra.init(
     },
     habilitado: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    idProductoStock: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+    },
+    idCompra: {
+      type: DataTypes.TINYINT,
       allowNull: false,
     },
   },

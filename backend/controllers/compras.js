@@ -1,10 +1,11 @@
+const { Proveedor, Usuario } = require('../database/associations.js');
 const Compra = require('../database/models/Compra.js')
 
 const CompraController = {
   getAll: async (req, res) => {
-    await Compra.findAll()
+    await Compra.findAll({ include: [[Proveedor,"Proveedor"], [Usuario,"Usuario"]],where:{habilitado: 1} })
       .then((compra) => {
-        res.json(compra);
+        compra? res.json(compra):res.status(404).json({msg:`No se encontraron compras registradas`});
       })
       .catch((e) =>
         res.send(`Se produjo un error al intentar consultar el registro de compras. \nError: ${e}`)

@@ -2,7 +2,7 @@ const Rol = require("../database/models/Rol.js");
 
 const rolController = {
   getAll: async (req, res) => {
-    await Rol.findAll()
+    await Rol.findAll({where:{habilitado: 1}})
       .then((rol) => {
         res.json(rol);
       })

@@ -30,13 +30,13 @@ Producto.init(
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    idTipoProd: {
-      type: DataTypes.TINYINT,
-      allowNull: true,
-    },
     habilitado: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
+    },
+    idTipoProd: {
+      type: DataTypes.TINYINT,
+      allowNull: true,
     },
   },
   { sequelize, modelName: "Productos", timestamps: false }

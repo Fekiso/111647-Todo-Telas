@@ -10,6 +10,10 @@ Stock.init(
       autoIncrement: true,
       primaryKey: true,
     },
+    largo: {
+      type: DataTypes.FLOAT,
+      allowNull: false
+    },
     idLocal: {
       type: DataTypes.TINYINT,
       allowNull: false,
@@ -17,10 +21,6 @@ Stock.init(
     idProducto: {
       type: DataTypes.INTEGER,
       allowNull: true,
-    },
-    largo: {
-      type: DataTypes.FLOAT,
-      allowNull: false
     },
   },
   { sequelize, modelName: "Stocks", timestamps: false }

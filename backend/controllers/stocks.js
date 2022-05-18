@@ -1,8 +1,9 @@
+const { Producto } = require("../database/associations.js");
 const Stock = require("../database/models/Stock.js");
 
 const stockController = {
   getAll: async (req, res) => {
-    await Stock.findAll()
+    await Stock.findAll({ include: { model: Producto } })
       .then((stock) => {
         res.json(stock);
       })
@@ -10,7 +11,7 @@ const stockController = {
         res.send(`Se produjo un error al intentar consultar los tipos de documento. \nError: ${e}`)
       );
   },
-  
+
   getOne: async (req, res) => {
     await Stock.findByPk(req.params.id)
       .then((stock) => {

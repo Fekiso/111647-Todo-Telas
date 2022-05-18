@@ -10,14 +10,6 @@ Compra.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    legajo: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-    },
-    idProveedor: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-    },
     fechaAlta: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -28,6 +20,14 @@ Compra.init(
     },
     habilitado: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    idProveedor: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+    },
+    legajo: {
+      type: DataTypes.TINYINT,
       allowNull: false,
     },
   },

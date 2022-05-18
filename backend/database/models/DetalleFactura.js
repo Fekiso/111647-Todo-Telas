@@ -10,14 +10,6 @@ DetalleFactura.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    idFactura: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-    },
-    idProductoStock: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-    },
     nombreProducto: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -32,6 +24,14 @@ DetalleFactura.init(
     },
     habilitado: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    idProductoStock: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+    },
+    idFactura: {
+      type: DataTypes.TINYINT,
       allowNull: false,
     },
   },

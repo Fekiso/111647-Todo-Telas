@@ -2,7 +2,7 @@ const TipoProducto = require("../database/models/TipoProducto.js");
 
 const tiposProductosController = {
   getAll: async (req, res) => {
-    await TipoProducto.findAll()
+    await TipoProducto.findAll({ where: { habilitado: 1 } })
       .then((tipoProducto) => {
         res.json(tipoProducto);
       })
@@ -46,7 +46,7 @@ const tiposProductosController = {
       },
       {
         where: {
-              idTipoProd: req.params.id,
+          idTipoProd: req.params.id,
         },
       }
     )

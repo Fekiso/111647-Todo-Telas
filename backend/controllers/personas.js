@@ -1,8 +1,13 @@
+const { TipoDoc } = require('../database/associations.js');
 const Persona = require('../database/models/Persona.js')
 
 const PersonaController = {
   getAll: async (req, res) => {
-    await Persona.findAll()
+    await Persona.findAll({
+      include:{
+        model:TipoDoc
+      },where:{habilitado: 1}
+    })
       .then((persona) => {
         res.json(persona);
       })

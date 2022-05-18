@@ -10,18 +10,6 @@ Factura.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    legajo: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-    },
-    idPersona: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    idDescuento: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-    },
     fechaAlta: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -32,6 +20,18 @@ Factura.init(
     },
     habilitado: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    idPersona: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    legajo: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+    },
+    idDescuento: {
+      type: DataTypes.TINYINT,
       allowNull: false,
     },
   },

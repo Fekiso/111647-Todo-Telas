@@ -1,8 +1,9 @@
+const { Stock, Factura } = require("../database/associations.js");
 const DetalleFactura = require("../database/models/DetalleFactura.js");
 
-const CompraController = {
+const DetalleFacturaController = {
   getAll: async (req, res) => {
-    await DetalleFactura.findAll()
+    await DetalleFactura.findAll({include:[Stock,Factura]})
       .then((detalleFactura) => {
         res.json(detalleFactura);
       })
@@ -89,4 +90,4 @@ const CompraController = {
   },
 };
 
-module.exports = CompraController;
+module.exports = DetalleFacturaController;

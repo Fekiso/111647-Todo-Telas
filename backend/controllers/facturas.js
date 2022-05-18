@@ -1,8 +1,9 @@
-const Factura = require('../database/models/Factura.js')
+const { Persona, Usuario, Descuento } = require("../database/associations.js");
+const Factura = require("../database/models/Factura.js");
 
 const FacturaController = {
   getAll: async (req, res) => {
-    await Factura.findAll()
+    await Factura.findAll({ include: [Persona, Usuario, Descuento], where: { habilitado: 1 } })
       .then((factura) => {
         res.json(factura);
       })
@@ -10,7 +11,7 @@ const FacturaController = {
         res.send(`Se produjo un error al intentar consultar el registro de facturas. \nError: ${e}`)
       );
   },
-  
+
   getOne: async (req, res) => {
     await Factura.findByPk(req.params.id)
       .then((factura) => {

@@ -1,8 +1,13 @@
-const Usuario = require('../database/models/Usuario.js')
+const { Op } = require("sequelize");
+const { Persona, Rol, EstadoEmpleado, Local } = require("../database/associations.js");
+const Usuario = require("../database/models/Usuario.js");
 
 const ProveedorController = {
   getAll: async (req, res) => {
-    await Usuario.findAll()
+    await Usuario.findAll({
+      include: [Persona, Rol, EstadoEmpleado, Local],
+      where: { [Op.ne]: [{idEstado: 3}, {idEstado: 4}] },
+    })
       .then((usuario) => {
         res.json(usuario);
       })
@@ -10,7 +15,7 @@ const ProveedorController = {
         res.send(`Se produjo un error al intentar consultar el registro de usuarios. \nError: ${e}`)
       );
   },
-  
+
   getOne: async (req, res) => {
     await Usuario.findByPk(req.params.id)
       .then((usuario) => {

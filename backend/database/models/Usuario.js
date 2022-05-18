@@ -10,10 +10,6 @@ Usuario.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    idPersona: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
     pass: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -26,8 +22,8 @@ Usuario.init(
       type: DataTypes.DATE,
       allowNull: true,
     },
-    idLocal: {
-      type: DataTypes.TINYINT,
+    idPersona: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     idRol: {
@@ -35,6 +31,10 @@ Usuario.init(
       allowNull: false,
     },
     idEstado: {
+      type: DataTypes.TINYINT,
+      allowNull: false,
+    },
+    idLocal: {
       type: DataTypes.TINYINT,
       allowNull: false,
     },

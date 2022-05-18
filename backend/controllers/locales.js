@@ -2,7 +2,7 @@ const Local = require("../database/models/local.js");
 
 const localesController = {
   getAll: async (req, res) => {
-    await Local.findAll()
+    await Local.findAll({ where: { habilitado: 1 } })
       .then((local) => {
         res.json(local);
       })
@@ -17,9 +17,7 @@ const localesController = {
         res.json(local);
       })
       .catch((e) =>
-        res.send(
-          `Se produjo un error al intentar consultar los datos del local. \nError: ${e}`
-        )
+        res.send(`Se produjo un error al intentar consultar los datos del local. \nError: ${e}`)
       );
   },
 
@@ -32,9 +30,7 @@ const localesController = {
         res.send(local);
       })
       .catch((e) =>
-        res.send(
-          `Se produjo un error al intentar dar de alta un nuevo local. \nError: ${e}`
-        )
+        res.send(`Se produjo un error al intentar dar de alta un nuevo local. \nError: ${e}`)
       );
   },
 
@@ -75,9 +71,7 @@ const localesController = {
         res.send(local);
       })
       .catch((e) =>
-        res.send(
-          `Se produjo un error al intentar dar de baja al local seleccionado. \nError: ${e}`
-        )
+        res.send(`Se produjo un error al intentar dar de baja al local seleccionado. \nError: ${e}`)
       );
   },
 };

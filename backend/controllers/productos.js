@@ -1,16 +1,19 @@
-const Persona = require('../database/models/Producto.js')
+const { TipoProducto } = require("../database/associations.js");
+const Persona = require("../database/models/Producto.js");
 
 const ProductoController = {
   getAll: async (req, res) => {
-    await Persona.findAll()
+    await Persona.findAll({ include: { model: TipoProducto }, where: { habilitado: 1 } })
       .then((producto) => {
         res.json(producto);
       })
       .catch((e) =>
-        res.send(`Se produjo un error al intentar consultar el registro de productos. \nError: ${e}`)
+        res.send(
+          `Se produjo un error al intentar consultar el registro de productos. \nError: ${e}`
+        )
       );
   },
-  
+
   getOne: async (req, res) => {
     await Persona.findByPk(req.params.id)
       .then((producto) => {

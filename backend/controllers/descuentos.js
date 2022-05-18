@@ -2,7 +2,7 @@ const Descuento = require("../database/models/Descuento.js");
 
 const tipoDocController = {
   getAll: async (req, res) => {
-    await Descuento.findAll()
+    await Descuento.findAll({ where: { habilitado: 1 } })
       .then((descuento) => {
         res.json(descuento);
       })
@@ -34,9 +34,7 @@ const tipoDocController = {
         res.send(descuento);
       })
       .catch((e) =>
-        res.send(
-          `Se produjo un error al intentar dar de alta un nuevo descuento. \nError: ${e}`
-        )
+        res.send(`Se produjo un error al intentar dar de alta un nuevo descuento. \nError: ${e}`)
       );
   },
 

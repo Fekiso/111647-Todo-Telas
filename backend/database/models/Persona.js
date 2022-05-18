@@ -10,10 +10,6 @@ Persona.init(
       autoIncrement: true,
       primaryKey: true,
     },
-    idTipoDoc: {
-      type: DataTypes.TINYINT,
-      allowNull: false,
-    },
     nroDocumento: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -36,6 +32,10 @@ Persona.init(
     },
     habilitado: {
       type: DataTypes.BOOLEAN,
+      allowNull: false,
+    },
+    idTipoDoc: {
+      type: DataTypes.TINYINT,
       allowNull: false,
     },
   },

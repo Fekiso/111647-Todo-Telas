@@ -1,16 +1,18 @@
-const Proveedor = require('../database/models/Proveedor.js')
+const Proveedor = require("../database/models/Proveedor.js");
 
 const ProveedorController = {
   getAll: async (req, res) => {
-    await Proveedor.findAll()
+    await Proveedor.findAll({ where: { habilitado: 1 } })
       .then((proveedor) => {
         res.json(proveedor);
       })
       .catch((e) =>
-        res.send(`Se produjo un error al intentar consultar el registro de proveedores. \nError: ${e}`)
+        res.send(
+          `Se produjo un error al intentar consultar el registro de proveedores. \nError: ${e}`
+        )
       );
   },
-  
+
   getOne: async (req, res) => {
     await Proveedor.findByPk(req.params.id)
       .then((proveedor) => {

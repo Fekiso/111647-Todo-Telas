@@ -2,7 +2,7 @@ const TipoDoc = require("../database/models/TipoDoc.js");
 
 const tipoDocController = {
   getAll: async (req, res) => {
-    await TipoDoc.findAll()
+    await TipoDoc.findAll({ where: { habilitado: 1 } })
       .then((tiposDoc) => {
         res.json(tiposDoc);
       })
@@ -10,7 +10,7 @@ const tipoDocController = {
         res.send(`Se produjo un error al intentar consultar los tipos de documento. \nError: ${e}`)
       );
   },
-  
+
   getOne: async (req, res) => {
     await TipoDoc.findByPk(req.params.id)
       .then((tiposDoc) => {
