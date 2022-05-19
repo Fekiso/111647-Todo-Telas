@@ -1,4 +1,6 @@
 const express = require("express");
+const { expressjwt } = require("express-jwt");
+const Usuario = require("./database/models/Usuario.js");
 const app = express();
 
 const sequelize = require("./database/db.js");
@@ -8,22 +10,22 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+const validateJwt = expressjwt({ secret: process.env.SECRET, algorithms: ["HS256"] });
+const findAndAssignUser = async (req, res, next) => {
+  try {
+    const user = await Usuario.findByPk(req.auth.legajo);
+    if (!user) return res.status(401).end();
+    req.user = user;
+    next();
+  } catch (e) {
+    next(e);
+  }
+};
+const isAutenticated = express.Router().use(validateJwt, findAndAssignUser);
+
 //Rutas
-app.use("/api/TiposDocs", require("./routes/tiposDocs.routes.js"));
-app.use("/api/EstadosEmpleados", require("./routes/estadosEmpleados.routes.js"));
-app.use("/api/Roles", require("./routes/roles.routes.js"));
-app.use("/api/Locales", require("./routes/locales.routes.js"));
-app.use("/api/TiposProductos", require("./routes/tiposProductos.routes.js"));
-app.use("/api/Descuentos", require("./routes/descuentos.routes.js"));
-app.use("/api/Proveedores", require("./routes/proveedores.routes.js"));
-app.use("/api/Productos", require("./routes/productos.routes.js"));
-app.use("/api/Personas", require("./routes/personas.routes.js"));
-app.use("/api/Usuarios", require("./routes/usuarios.routes.js"));
-app.use("/api/Stocks", require("./routes/stocks.routes.js"));
-app.use("/api/Compras", require("./routes/compras.routes.js"));
-app.use("/api/Facturas", require("./routes/facturas.routes.js"));
-app.use("/api/DetallesCompras", require("./routes/detallesCompras.routes.js"));
-app.use("/api/DetallesFacturas", require("./routes/detallesFacturas.routes.js"));
+app.use("/api/", require("./routes/auth.routes.js"));
+app.use("/api/", isAutenticated, require("./routes/index.routes.js"));
 
 app.listen(PORT, function () {
   console.log(`La app arranco en http://localhost:${PORT}`);

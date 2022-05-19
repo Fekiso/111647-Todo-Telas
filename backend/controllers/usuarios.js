@@ -1,4 +1,5 @@
 const { Op } = require("sequelize");
+const bcrypt = require("bcrypt");
 const { Persona, Rol, EstadoEmpleado, Local } = require("../database/associations.js");
 const Usuario = require("../database/models/Usuario.js");
 
@@ -6,7 +7,7 @@ const ProveedorController = {
   getAll: async (req, res) => {
     await Usuario.findAll({
       include: [Persona, Rol, EstadoEmpleado, Local],
-      where: { [Op.ne]: [{idEstado: 3}, {idEstado: 4}] },
+      where: { idEstado: { [Op.ne]: [4] } },
     })
       .then((usuario) => {
         res.json(usuario);
@@ -29,9 +30,11 @@ const ProveedorController = {
   },
 
   post: async (req, res) => {
+    const salt = await bcrypt.genSalt();
+    const hashed = await bcrypt.hash(req.body.pass, salt);
     Usuario.create({
       idPersona: req.body.idPersona,
-      pass: req.body.pass,
+      pass: hashed,
       fechaAlta: new Date(),
       idLocal: req.body.idLocal,
       idRol: req.body.idRol,
@@ -48,17 +51,19 @@ const ProveedorController = {
   },
 
   update: async (req, res) => {
+    const salt = await bcrypt.genSalt();
+    const hashed = await bcrypt.hash(req.body.pass, salt);
     await Usuario.update(
       {
         idPersona: req.body.idPersona,
-        pass: req.body.pass,
+        pass: hashed,
         idLocal: req.body.idLocal,
         idRol: req.body.idRol,
         idEstado: req.body.idEstado,
       },
       {
         where: {
-          legajo: req.params.id,
+          legajo: req.params.legajo,
         },
       }
     )
