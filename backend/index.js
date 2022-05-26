@@ -1,13 +1,15 @@
 const express = require("express");
 const { expressjwt } = require("express-jwt");
+const cors = require("cors");
 const Usuario = require("./database/models/Usuario.js");
 const app = express();
 
 const sequelize = require("./database/db.js");
 
-const PORT = process.env.PORT || 3000;
+const PORT = 3080;
 
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 const validateJwt = expressjwt({ secret: process.env.SECRET, algorithms: ["HS256"] });

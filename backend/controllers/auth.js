@@ -15,7 +15,7 @@ const AuthController = {
         const isMatch = await bcrypt.compare(body.pass, auth.pass);
         if (isMatch) {
           const signed = jwt.sign({ legajo: auth.legajo }, process.env.SECRET);
-          return res.status(200).send(signed);
+          return res.status(200).send({token:signed,user:auth.legajo});
         } else {
           return res.status(403).send("Usuario y/o contraseña invalido");
         }

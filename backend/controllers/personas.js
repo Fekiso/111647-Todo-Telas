@@ -6,7 +6,8 @@ const PersonaController = {
     await Persona.findAll({
       include:{
         model:TipoDoc
-      },where:{habilitado: 1}
+      }
+      //,where:{habilitado: 1}
     })
       .then((persona) => {
         res.json(persona);

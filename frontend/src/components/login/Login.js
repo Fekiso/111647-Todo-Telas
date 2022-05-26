@@ -1,11 +1,12 @@
 import React from "react";
-import LoginDecoration from "./LoginDecoration.js";
-
-import Button from "../components/Button.js";
-import TextField from "../components/TextField.js";
-import { Grid, Typography } from "@mui/material";
+import { login } from "../../services/login.js";
 import styled from "styled-components";
 import { Formik } from "formik";
+
+import LoginDecoration from "./LoginDecoration.js";
+import Button from "../CommonComponents/Button.js";
+import TextField from "../CommonComponents/TextField.js";
+import { Grid, Typography } from "@mui/material";
 
 const StyledContainer = styled(Grid)`
   display: flex;
@@ -14,41 +15,31 @@ const StyledContainer = styled(Grid)`
 `;
 
 function Login() {
-  const validar = (values) => {
-    if (
-      values.legajo !== "" &&
-      values.legajo !== null &&
-      values.pass !== "" &&
-      values.pass !== null
-    ) {
-      if (values.legajo === 123 && values.pass === "123") {
-        values.error = "";
-      } else {
-        values.error = "Credenciales invalidas";
+  const handleLogin = async (values) => {
+    try {
+      if (
+        (values.legajo !== "" || values.legajo !== null || values.legejo !== undefined) &&
+        (values.pass !== "" || values.pass !== null || values.pass !== undefined)
+      ) {
+        values.user = await login(values);
+        values.legajo = "";
+        values.pass = "";
       }
-    } else {
-      values.error = "Alguna de las credeciales no fue rellenada.";
-    }
-  };
-
-  const handleSubmit = (values) => {
-    if (values.error !== "" && values.error !== null) {
+      values.error = "Faltan rellenar algunos campos";
+    } catch (e) {
+      values.error = "Credenciales invalidas";
     }
   };
 
   return (
     <>
       <LoginDecoration />
-      <StyledContainer
-        direction="row"
-        maxWidth="xs"
-      >
+      <StyledContainer direction="row" maxWidth="xs">
         <Formik
-          initialValues={{ legajo: "", pass: "", error: "" }}
+          initialValues={{ legajo: "", pass: "", error: "", user: null }}
           onSubmit={(values) => {
-            handleSubmit(values);
+            handleLogin(values);
           }}
-          validate={(values) => validar(values)}
         >
           {({ values, handleChange, handleSubmit, touched }) => (
             <form onSubmit={handleSubmit}>

@@ -1,12 +1,14 @@
 import { Collapse, Grid, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import styled from "styled-components";
 import { useState } from "react";
+import {logout} from '../../services/login.js'
 
 const StyledGrid = styled(Grid)`
   display: flexbox;
   align-items: center;
   flex-direction: column;
-  border-left: 1px solid #ff9707;
+  margin: 0 5px 0 0;
+  border-rigth: 2px solid #ff9707;
 `;
 
 const StyledListItemButton = styled(ListItemButton)`
@@ -17,7 +19,6 @@ const StyledListItemButton = styled(ListItemButton)`
 `;
 
 const StyledCollapse = styled(Collapse)`
-  margin-left: 20px;
   &.Focus {
     backgound-color: #fdf4e8;
     color: #ff9707;
@@ -64,6 +65,9 @@ const Navbar = (props) => {
         setOpenCollapseCompras(false);
         setOpenCollapseVentas(false);
         break;
+      case "Logout":
+        logout();
+        break;
       default:
         break;
     }
@@ -94,7 +98,10 @@ const Navbar = (props) => {
             </StyledCollapseListItem>
           </List>
         </StyledCollapse>
-        <StyledListItemButton className={openCollapseStock? ("Focus"):("")} onClick={(e) => handleClickMenuCmbNavBar("Stock")}>
+        <StyledListItemButton
+          className={openCollapseStock ? "Focus" : ""}
+          onClick={(e) => handleClickMenuCmbNavBar("Stock")}
+        >
           <ListItemText>Stocks</ListItemText>
         </StyledListItemButton>
         <StyledCollapse in={openCollapseStock} timeout="auto" unmountOnExit>
@@ -107,7 +114,10 @@ const Navbar = (props) => {
             </StyledCollapseListItem>
           </List>
         </StyledCollapse>
-        <StyledListItemButton className={openCollapseCompras? ("Focus"):("")} onClick={(e) => handleClickMenuCmbNavBar("Compras")}>
+        <StyledListItemButton
+          className={openCollapseCompras ? "Focus" : ""}
+          onClick={(e) => handleClickMenuCmbNavBar("Compras")}
+        >
           <ListItemText>Compras</ListItemText>
         </StyledListItemButton>
         <StyledCollapse in={openCollapseCompras} timeout="auto" unmountOnExit>
@@ -120,7 +130,10 @@ const Navbar = (props) => {
             </StyledCollapseListItem>
           </List>
         </StyledCollapse>
-        <StyledListItemButton className={openCollapseVentas? ("Focus"):("")} onClick={(e) => handleClickMenuCmbNavBar("Ventas")}>
+        <StyledListItemButton
+          className={openCollapseVentas ? "Focus" : ""}
+          onClick={(e) => handleClickMenuCmbNavBar("Ventas")}
+        >
           <ListItemText>Ventas</ListItemText>
         </StyledListItemButton>
         <StyledCollapse in={openCollapseVentas} timeout="auto" unmountOnExit>
@@ -133,8 +146,18 @@ const Navbar = (props) => {
             </StyledCollapseListItem>
           </List>
         </StyledCollapse>
-        <StyledCollapseListItem className={! true? ("Focus"):("")} onClick={(e) => handleClickMenuCmbNavBar("Reportes")}>
+        <StyledCollapseListItem
+          className={!true ? "Focus" : ""}
+          onClick={(e) => handleClickMenuCmbNavBar("Reportes")}
+        >
           <ListItemText>Reportes</ListItemText>
+        </StyledCollapseListItem>
+
+        <StyledCollapseListItem
+          className={!true ? "Focus" : ""}
+          onClick={(e) => handleClickMenuCmbNavBar("Logout")}
+        >
+          <ListItemText>Cerrar sesion</ListItemText>
         </StyledCollapseListItem>
       </List>
     </StyledGrid>
